@@ -1,13 +1,5 @@
 "use client";
-
-import Navbar from "@/components/navbar";
-import SelectMenu from "@/components/select-menu";
-import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
-import { FiMoon, FiSun } from "react-icons/fi";
-import { MdContentCopy } from "react-icons/md";
-import { TiTick } from "react-icons/ti";
-
 interface ColorsData {
   color: {
     [key: string]: {
@@ -19,6 +11,7 @@ interface ColorsData {
   };
 }
 
+// Assuming colorsData is of type ColorsData
 const colorsData: ColorsData = require("@/public/radix-colors.json");
 
 interface Theme {
@@ -27,50 +20,41 @@ interface Theme {
   success: string;
   alert: string;
   warning: string;
-  info: string;
   neutral: string;
 }
 
-const themeColors: Partial<Record<keyof Theme, string[]>> = {
-  alert: ["red", "ruby", "tomato", "crimson"],
-  success: ["green", "teal", "jade", "grass", "mint"],
-  warning: ["yellow", "amber", "orange"],
-  info: ["blue", "indigo", "sky", "cyan"],
-};
+const themeKeys = [
+  "primary",
+  "secondary",
+  "success",
+  "alert",
+  "warning",
+  "neutral",
+];
 
 const ThemeGenerator: React.FC = () => {
   const [theme, setTheme] = useState<Theme>({
-    neutral: "gray",
     primary: "blue",
     secondary: "gray",
     success: "green",
     alert: "red",
     warning: "yellow",
-    info: "blue",
+    neutral: "gray",
   });
-  const [tailwindConfig, setTailwindConfig] = useState("");
   const [themeCSS, setThemeCSS] = useState<string>("");
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
-  const [copied, setCopied] = useState<{ [key: string]: boolean }>({
-    themeCSS: false,
-    tailwindConfig: false,
-  });
-  const { setTheme: setAppTheme } = useTheme();
-  const [tailwindConfigVariables, setTailwindConfigVariables] = useState<
-    string[]
-  >([]);
 
-  const handleChange = (themeKey: keyof Theme, newValue: string) => {
-    setTheme((prevTheme) => ({ ...prevTheme, [themeKey]: newValue }));
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setTheme((prevTheme) => ({ ...prevTheme, [name]: value }));
   };
 
   const generateTheme = (): string => {
     const themeVariables: string[] = [];
-    const configVariables: string[] = [];
 
     const modeSuffix = isDarkMode ? "Dark" : ""; // Suffix for dark mode
 
-    Object.entries(theme).forEach(([name, color]) => {
+    const generateShades = (color: string, name: string) => {
       const colorName = `${color}${modeSuffix}`; // Append mode suffix
       const colorData = colorsData.color[colorName] as Record<
         string,
@@ -92,170 +76,79 @@ const ThemeGenerator: React.FC = () => {
         "text-contrast",
       ];
 
-      shadeNames.forEach((shadeName, i) => {
-        const key = `${name}-${shadeName}`;
-        const value = colorData[(i + 1) * 100].value;
-        themeVariables.push(`\t--${key}: ${value};`);
-        configVariables.push(`\t"${key}": "var(--${key})",`);
-      });
-
-      themeVariables.push("\n");
-      configVariables.push("\n");
-    });
-
-    if (themeVariables.length) themeVariables.pop();
-    if (configVariables.length) configVariables.pop();
-
-    setTailwindConfigVariables(configVariables);
-
-    return `${isDarkMode ? ".dark" : ":root"} {\n${themeVariables.join(
-      "\n"
-    )}\n}`;
-  };
-
-  const handleCopy = (text: string, key: "themeCSS" | "tailwindConfig") => {
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        setCopied((prevStatus) => ({ ...prevStatus, [key]: true }));
-        setTimeout(
-          () => setCopied((prevStatus) => ({ ...prevStatus, [key]: false })),
-          1000
+      for (let i = 0; i < shadeNames.length; i++) {
+        themeVariables.push(
+          `--${name}-${shadeNames[i]}: ${colorData[(i + 1) * 100].value};`
         );
-      })
-      .catch(() => {
-        setCopied((prevStatus) => ({ ...prevStatus, [key]: false }));
-      });
-  };
+      }
+    };
 
-  const getOptionsForThemeKey = (themeKey: keyof Theme): string[] => {
-    return (
-      themeColors[themeKey] ||
-      Object.keys(colorsData.color).filter((color) => !color.endsWith("Dark"))
-    );
+    generateShades(theme.primary, "primary");
+    generateShades(theme.secondary, "secondary");
+    generateShades(theme.success, "success");
+    generateShades(theme.warning, "warning");
+    generateShades(theme.alert, "danger");
+    generateShades(theme.neutral, "neutral");
+
+    return themeVariables.join("\n");
   };
 
   useEffect(() => {
     const generatedTheme = generateTheme();
     setThemeCSS(generatedTheme);
-    setAppTheme(isDarkMode ? "dark" : "light");
   }, [theme, isDarkMode]);
 
-  useEffect(() => {
-    const generatedConfig = `colors: {\n${tailwindConfigVariables.join(
-      "\n"
-    )}\n}`;
-    setTailwindConfig(generatedConfig);
-  }, [tailwindConfigVariables]);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(themeCSS).then(() => {
+      alert("Theme CSS variables copied to clipboard!");
+    });
+  };
+
+  const toggleThemeMode = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
 
   return (
     <>
-      <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-      <div className="flex justify-between px-4 py-[26px] min-h-[calc(100dvh-8.85rem)]">
-        <div className="flex flex-col gap-2.5">
-          <h2 className="text-primary-text-contrast font-semibold">Theme</h2>
-          <div className="flex flex-col gap-6 bg-primary-bg rounded-sm p-5">
-            <div className="flex gap-2 text-primary-text-contrast ">
-              <button
-                type="button"
-                title="light theme"
-                onClick={() => setIsDarkMode(false)}
-                className={`rounded-md px-3 border border-primary-border flex items-center justify-center gap-1 h-8 w-full text-sm ${
-                  !isDarkMode && "border-primary-solid"
-                }`}
+      <div className="flex justify-between h-full">
+        <div className="flex flex-col justify-center">
+          {Object.keys(theme).map((themeKey) => (
+            <div key={themeKey}>
+              <label htmlFor={themeKey}>
+                {themeKey.charAt(0).toUpperCase() + themeKey.slice(1)}:
+              </label>
+              <select
+                name={themeKey}
+                value={theme[themeKey as keyof Theme]} // Type assertion here
+                className="text-black"
+                onChange={handleChange}
               >
-                <FiSun className="text-primary-text" />
-                Light
-              </button>
-              <button
-                type="button"
-                title="dark theme"
-                onClick={() => setIsDarkMode(true)}
-                className={`rounded-md px-3 border border-primary-border flex items-center justify-center gap-1 h-8 w-full text-sm ${
-                  isDarkMode && "border-primary-solid"
-                }`}
-              >
-                <FiMoon className="text-primary-text" />
-                Dark
-              </button>
+                {Object.keys(colorsData.color).map((color) => (
+                  <option key={color} className="text-black" value={color}>
+                    {color}
+                  </option>
+                ))}
+              </select>
             </div>
-            {Object.keys(theme).map((themeKey) => (
-              <div key={themeKey} className="flex flex-col gap-1">
-                <label
-                  htmlFor={themeKey}
-                  className="text-primary-text-contrast"
-                >
-                  {themeKey.charAt(0).toUpperCase() + themeKey.slice(1)}
-                </label>
-                <SelectMenu
-                  options={getOptionsForThemeKey(themeKey as keyof Theme)}
-                  selectedValue={theme[themeKey as keyof Theme]}
-                  onChange={(newValue: string) =>
-                    handleChange(themeKey as keyof Theme, newValue)
-                  }
-                />
-              </div>
-            ))}
+          ))}
+          <div>
+            <input
+              type="checkbox"
+              checked={isDarkMode}
+              onChange={toggleThemeMode}
+            />
+            <label>Dark Mode</label>
           </div>
         </div>
-
-        <div className="flex items-center gap-8">
-          <div className="flex flex-col justify-start items-start rounded-sm gap-2.5 h-full">
-            <h2 className="text-primary-text-contrast font-semibold">
-              main.css
-            </h2>
-            <div className="h-full relative">
-              <button
-                onClick={() => handleCopy(themeCSS, "themeCSS")}
-                type="button"
-                title="copy"
-                className="absolute right-0 p-[10px]"
-              >
-                {copied.themeCSS ? (
-                  <TiTick className="text-primary-text text-xl" />
-                ) : (
-                  <MdContentCopy className="text-primary-text text-xl" />
-                )}
-              </button>
-              <textarea
-                title="theme"
-                placeholder="theme"
-                rows={10}
-                cols={50}
-                value={themeCSS}
-                className="text-primary-text-contrast text-sm h-full bg-primary-bg outline-none focus:outline-none p-5 pt-[30px] resize-none"
-                readOnly
-              ></textarea>
-            </div>
-          </div>
-          <div className="flex flex-col justify-start items-start rounded-sm gap-2.5 h-full">
-            <h2 className="text-primary-text-contrast font-semibold">
-              tailwind.config.js
-            </h2>
-            <div className="h-full relative">
-              <button
-                onClick={() => handleCopy(tailwindConfig, "tailwindConfig")}
-                type="button"
-                title="copy"
-                className="absolute right-0 p-[10px]"
-              >
-                {copied.tailwindConfig ? (
-                  <TiTick className="text-primary-text text-xl" />
-                ) : (
-                  <MdContentCopy className="text-primary-text text-xl" />
-                )}
-              </button>
-              <textarea
-                title="theme"
-                placeholder="theme"
-                rows={10}
-                cols={50}
-                value={tailwindConfig}
-                className="text-primary-text-contrast text-sm h-full bg-primary-bg outline-none focus:outline-none p-5 pt-[30px] resize-none"
-                readOnly
-              ></textarea>
-            </div>
-          </div>
+        <div className="flex flex-col justify-start items-start h-[100vh]">
+          <textarea
+            rows={10}
+            cols={50}
+            value={themeCSS}
+            className="text-black h-full"
+            readOnly
+          ></textarea>
+          <button onClick={handleCopy}>Copy CSS Variables</button>
         </div>
       </div>
     </>
