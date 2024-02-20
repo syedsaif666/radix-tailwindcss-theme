@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import { FiMoon, FiSun } from "react-icons/fi";
 import { Copy, Tick } from "@/components/icons";
 import SlotWrapper from "@/components/slot-wrapper";
-import Slot from "@/components/slot";
 
 interface ColorsData {
   color: {
