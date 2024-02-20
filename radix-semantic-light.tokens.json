@@ -1,9 +1,8 @@
 {
   "radix-semantic-light": {
-    "color": 
-    {
+    "color": {
       "bg": {
-        "default-bg": {
+        "default": {
           "value": "{color.white}",
           "type": "color"
         },
@@ -29,10 +28,6 @@
         }
       },
       "fg": {
-        "default-fg": {
-          "value": "{color.black}",
-          "type": "color"
-        },
         "line": {
           "value": "{color.slate.600}",
           "type": "color"
@@ -59,6 +54,10 @@
         },
         "text-contrast": {
           "value": "{color.slate.1200}",
+          "type": "color"
+        },
+        "default": {
+          "value": "{color.black}",
           "type": "color"
         },
         "primary": {

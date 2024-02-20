@@ -3,7 +3,7 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <div className="py-8 text-center">
-      <p className="text-primary-text text-sm">
+      <p className="text-fg-text text-sm">
         Crafted by{" "}
         <Link
           href="https://www.newweborder.co/"

@@ -15,33 +15,37 @@ body {
 }
 
 :root {
-  --primary-base: #fcfcfc;
-  --primary-bg-subtle: #f8f8f8;
-  --primary-bg: #f3f3f3;
-  --primary-bg-hover: #ededed;
-  --primary-bg-active: #e8e8e8;
-  --primary-line: #e2e2e2;
-  --primary-border: #dbdbdb;
-  --primary-border-hover: #c7c7c7;
-  --primary-solid: #8f8f8f;
-  --primary-solid-hover: #858585;
-  --primary-text: #6f6f6f;
-  --primary-text-contrast: #171717;
+  --bg-default: #fff;
+  --bg-base: #fcfcfc;
+  --bg-bg-subtle: #f8f8f8;
+  --bg-bg: #f3f3f3;
+  --bg-bg-hover: #ededed;
+  --bg-bg-active: #e8e8e8;
+  --fg-line: #e2e2e2;
+  --fg-border: #dbdbdb;
+  --fg-border-hover: #c7c7c7;
+  --fg-solid: #8f8f8f;
+  --fg-solid-hover: #858585;
+  --fg-text: #6f6f6f;
+  --fg-text-contrast: #171717;
+  --fg-default: #000;
 }
 
 .dark {
-  --primary-base: #161616;
-  --primary-bg-subtle: #1c1c1c;
-  --primary-bg: #232323;
-  --primary-bg-hover: #282828;
-  --primary-bg-active: #2e2e2e;
-  --primary-line: #343434;
-  --primary-border: #3e3e3e;
-  --primary-border-hover: #505050;
-  --primary-solid: #707070;
-  --primary-solid-hover: #7e7e7e;
-  --primary-text: #a0a0a0;
-  --primary-text-contrast: #ededed;
+  --bg-default: #000;
+  --bg-base: #161616;
+  --bg-bg-subtle: #1c1c1c;
+  --bg-bg: #232323;
+  --bg-bg-hover: #282828;
+  --bg-bg-active: #2e2e2e;
+  --fg-line: #343434;
+  --fg-border: #3e3e3e;
+  --fg-border-hover: #505050;
+  --fg-solid: #707070;
+  --fg-solid-hover: #7e7e7e;
+  --fg-text: #a0a0a0;
+  --fg-text-contrast: #ededed;
+  --fg-default: #fff;
 }
 
 ::-webkit-scrollbar {
@@ -49,8 +53,377 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  /* background: #bbbbbb; */
-  @apply bg-primary-border;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
+  @apply bg-fg-border border-b rounded-tr-[3px] rounded-br-[3px];
+}
+
+.gray {
+  --bg-base: #fcfcfc;
+  --bg-bg-subtle: #f8f8f8;
+  --bg-bg: #f3f3f3;
+}
+
+.grayDark {
+  --bg-base: #161616;
+  --bg-bg-subtle: #1c1c1c;
+  --bg-bg: #232323;
+}
+
+.mauve {
+  --bg-base: #fdfcfd;
+  --bg-subtle: #f9f8f9;
+  --bg-bg: #f4f2f4;
+}
+
+.mauveDark {
+  --bg-base: #161618;
+  --bg-subtle: #1c1c1f;
+  --bg-bg: #232326;
+}
+
+.slate {
+  --bg-base: #fbfcfd;
+  --bg-subtle: #f8f9fa;
+  --bg-bg: #f1f3f5;
+}
+
+.slateDark {
+  --bg-base: #151718;
+  --bg-subtle: #1a1d1e;
+  --bg-bg: #202425;
+}
+
+.sage {
+  --bg-base: #fbfdfc;
+  --bg-subtle: #f8faf9;
+  --bg-bg: #f1f4f3;
+}
+
+.sageDark {
+  --bg-base: #141716;
+  --bg-bg-subtle: #191d1b;
+  --bg-bg: #1f2421;
+}
+
+.olive {
+  --bg-base: #fcfdfc;
+  --bg-bg-subtle: #f8faf8;
+  --bg-bg: #f2f4f2;
+}
+
+.oliveDark {
+  --bg-base: #151715;
+  --bg-bg-subtle: #1a1d19;
+  --bg-bg: #20241f;
+}
+
+.sand {
+  --bg-base: #fdfdfc;
+  --bg-bg-subtle: #f9f9f8;
+  --bg-bg: #f3f3f2;
+}
+
+.sandDark {
+  --bg-base: #161615;
+  --bg-bg-subtle: #1c1c1a;
+  --bg-bg: #232320;
+}
+
+.gold {
+  --bg-base: #fdfdfc;
+  --bg-bg-subtle: #fbf9f2;
+  --bg-bg: #f5f2e9;
+}
+
+.goldDark {
+  --bg-base: #171613;
+  --bg-bg-subtle: #1c1a15;
+  --bg-bg: #26231c;
+}
+
+.bronze {
+  --bg-base: #fdfcfc;
+  --bg-bg-subtle: #fdf8f6;
+  --bg-bg: #f8f1ee;
+}
+
+.bronzeDark {
+  --bg-base: #191514;
+  --bg-bg-subtle: #1f1917;
+  --bg-bg: #2a211f;
+}
+
+.brown {
+  --bg-base: #fefdfc;
+  --bg-bg-subtle: #fcf9f6;
+  --bg-bg: #f8f1ea;
+}
+
+.brownDark {
+  --bg-base: #191513;
+  --bg-bg-subtle: #221813;
+  --bg-bg: #2e201a;
+}
+
+.yellow {
+  --bg-base: #fdfdf9;
+  --bg-bg-subtle: #fffce8;
+  --bg-bg: #fffbd1;
+}
+
+.yellowDark {
+  --bg-base: #1c1500;
+  --bg-bg-subtle: #221a00;
+  --bg-bg: #2c2100;
+}
+
+.amber {
+  --bg-base: #fefdfb;
+  --bg-bg-subtle: #fff9ed;
+  --bg-bg: #fff4d5;
+}
+
+.amberDark {
+  --bg-base: #1f1300;
+  --bg-bg-subtle: #271700;
+  --bg-bg: #341c00;
+}
+
+.orange {
+  --bg-base: #fefcfb;
+  --bg-bg-subtle: #fef8f4;
+  --bg-bg: #fff1e7;
+}
+
+.orangeDark {
+  --bg-base: #1f1206;
+  --bg-bg-subtle: #2b1400;
+  --bg-bg: #391a03;
+}
+
+.tomato {
+  --bg-base: #fffcfc;
+  --bg-bg-subtle: #fff8f7;
+  --bg-bg: #fff0ee;
+}
+
+.tomatoDark {
+  --bg-base: #1d1412;
+  --bg-bg-subtle: #2a1410;
+  --bg-bg: #3b1813;
+}
+
+.red {
+  --bg-base: #fffcfc;
+  --bg-bg-subtle: #fff8f8;
+  --bg-bg: #ffefef;
+}
+
+.redDark {
+  --bg-base: #1f1315;
+  --bg-bg-subtle: #291415;
+  --bg-bg: #3c181a;
+}
+
+.ruby {
+  --bg-base: #fffcfd;
+  --bg-bg-subtle: #fff7f9;
+  --bg-bg: #feeff3;
+}
+
+.rubyDark {
+  --bg-base: #1f1417;
+  --bg-bg-subtle: #2a1519;
+  --bg-bg: #3b181f;
+}
+
+.crimson {
+  --bg-base: #fffcfd;
+  --bg-bg-subtle: #fff7fb;
+  --bg-bg: #feeff6;
+}
+
+.crimsonDark {
+  --bg-base: #1d1418;
+  --bg-bg-subtle: #27141c;
+  --bg-bg: #3c1827;
+}
+
+.pink {
+  --bg-base: #fffcfe;
+  --bg-bg-subtle: #fff7fc;
+  --bg-bg: #feeef8;
+}
+
+.pinkDark {
+  --bg-base: #1f121b;
+  --bg-bg-subtle: #271421;
+  --bg-bg: #3a182f;
+}
+
+.plum {
+  --bg-base: #fefcff;
+  --bg-bg-subtle: #fff8ff;
+  --bg-bg: #fceffc;
+}
+
+.plumDark {
+  --bg-base: #1d131d;
+  --bg-bg-subtle: #251425;
+  --bg-bg: #341a34;
+}
+
+.purple {
+  --bg-base: #fefcfe;
+  --bg-bg-subtle: #fdfaff;
+  --bg-bg: #f9f1fe;
+}
+
+.purpleDark {
+  --bg-base: #1b141d;
+  --bg-bg-subtle: #221527;
+  --bg-bg: #301a3a;
+}
+
+.violet {
+  --bg-base: #fdfcfe;
+  --bg-bg-subtle: #fbfaff;
+  --bg-bg: #f5f2ff;
+}
+
+.violetDark {
+  --bg-base: #17151f;
+  --bg-bg-subtle: #1c172b;
+  --bg-bg: #251e40;
+}
+
+.iris {
+  --bg-base: #fdfdff;
+  --bg-bg-subtle: #fafaff;
+  --bg-bg: #f3f3ff;
+}
+
+.irisDark {
+  --bg-base: #151521;
+  --bg-bg-subtle: #19182d;
+  --bg-bg: #222040;
+}
+
+.indigo {
+  --bg-base: #fdfdfe;
+  --bg-bg-subtle: #f8faff;
+  --bg-bg: #f0f4ff;
+}
+
+.indigoDark {
+  --bg-base: #131620;
+  --bg-bg-subtle: #15192d;
+  --bg-bg: #192140;
+}
+
+.blue {
+  --bg-base: #fbfdff;
+  --bg-bg-subtle: #f5faff;
+  --bg-bg: #edf6ff;
+}
+
+.blueDark {
+  --bg-base: #0f1720;
+  --bg-bg-subtle: #0f1b2d;
+  --bg-bg: #10243e;
+}
+
+.cyan {
+  --bg-base: #fafdfe;
+  --bg-bg-subtle: #f2fcfd;
+  --bg-bg: #e7f9fb;
+}
+
+.cyanDark {
+  --bg-base: #07191d;
+  --bg-bg-subtle: #061e24;
+  --bg-bg: #072830;
+}
+
+.teal {
+  --bg-base: #fafefd;
+  --bg-bg-subtle: #f1fcfa;
+  --bg-bg: #e7f9f5;
+}
+
+.tealDark {
+  --bg-base: #091915;
+  --bg-bg-subtle: #04201b;
+  --bg-bg: #062923;
+}
+
+.jade {
+  --bg-base: #fbfefd;
+  --bg-bg-subtle: #effdf6;
+  --bg-bg: #e4faef;
+}
+
+.jadeDark {
+  --bg-base: #081911;
+  --bg-bg-subtle: #0b1f16;
+  --bg-bg: #0f291e;
+}
+
+.green {
+  --bg-base: #fbfefc;
+  --bg-bg-subtle: #f2fcf5;
+  --bg-bg: #e9f9ee;
+}
+
+.greenDark {
+  --bg-base: #0d1912;
+  --bg-bg-subtle: #0c1f17;
+  --bg-bg: #0f291e;
+}
+
+.grass {
+  --bg-base: #fbfefb;
+  --bg-bg-subtle: #f3fcf3;
+  --bg-bg: #ebf9eb;
+}
+
+.grassDark {
+  --bg-base: #0d1912;
+  --bg-bg-subtle: #0f1e13;
+  --bg-bg: #132819;
+}
+
+.lime {
+  --bg-base: #fcfdfa;
+  --bg-bg-subtle: #f7fcf0;
+  --bg-bg: #eefadc;
+}
+
+.limeDark {
+  --bg-base: #141807;
+  --bg-bg-subtle: #181d08;
+  --bg-bg: #1e260d;
+}
+
+.mint {
+  --bg-base: #f9fefd;
+  --bg-bg-subtle: #effefa;
+  --bg-bg: #e1fbf4;
+}
+
+.mintDark {
+  --bg-base: #081917;
+  --bg-bg-subtle: #05201e;
+  --bg-bg: #052926;
+}
+
+.sky {
+  --bg-base: #f9feff;
+  --bg-bg-subtle: #f1fcff;
+  --bg-bg: #e4f9ff;
+}
+
+.skyDark {
+  --bg-base: #0c1820;
+  --bg-bg-subtle: #071d2a;
+  --bg-bg: #082636;
 }

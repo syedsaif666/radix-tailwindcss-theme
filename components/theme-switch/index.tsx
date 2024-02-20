@@ -32,19 +32,19 @@ export default function ThemeSwitch({
   if (isDarkMode) {
     return (
       <div
-        className="p-2 hover:bg-primary-bg-hover rounded-md cursor-pointer"
+        className="p-2 hover:bg-bg-bg-hover rounded-md cursor-pointer"
         onClick={() => setIsDarkMode(false)}
       >
-        <FiSun className="text-primary-text text-xl" />
+        <FiSun className="text-fg-text text-xl" />
       </div>
     );
   } else {
     return (
       <div
-        className="p-2 hover:bg-primary-bg-hover rounded-md cursor-pointer"
+        className="p-2 hover:bg-bg-bg-hover rounded-md cursor-pointer"
         onClick={() => setIsDarkMode(true)}
       >
-        <FiMoon className="text-primary-text text-xl" />
+        <FiMoon className="text-fg-text text-xl" />
       </div>
     );
   }

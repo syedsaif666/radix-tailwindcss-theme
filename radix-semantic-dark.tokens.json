@@ -28,10 +28,6 @@
         }
       },
       "fg": {
-        "default": {
-          "value": "{color.white}",
-          "type": "color"
-        },
         "line": {
           "value": "{color.slateDark.600}",
           "type": "color"
@@ -58,6 +54,10 @@
         },
         "text-contrast": {
           "value": "{color.slateDark.1200}",
+          "type": "color"
+        },
+        "default": {
+          "value": "{color.white}",
           "type": "color"
         },
         "primary": {

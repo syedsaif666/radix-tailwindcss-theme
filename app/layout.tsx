@@ -18,9 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`bg-primary-base ${inter.className}`}>
+      <body className={`${inter.className}`} id="themeDisplayArea">
         <Provider>
-          <main>{children}</main>
+          <main className="bg-bg-base">{children}</main>
           <Footer />
         </Provider>
       </body>
